@@ -4,18 +4,18 @@
     android:layout_height="wrap_content"
     android:background="@drawable/header_selector" >
 
-    <TextView
+ <!--   <TextView
         android:gravity="center"
         android:id="@+id/text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!--<se.emilsjolander.stickylistheaders.sample.views.UnderlineTextView-->
-        <!--android:id="@+id/text1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="start|left"-->
-        <!--android:padding="5dp"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:textSize="17sp"-->
-        <!--android:textStyle="bold" />-->
+        android:layout_height="wrap_content" />-->
+    <ru.norbit.mystickylistheaders.UnderlineTextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|left"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 </RelativeLayout>
