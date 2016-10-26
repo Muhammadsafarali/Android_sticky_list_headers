@@ -1,4 +1,4 @@
-# Android_sticky_list_headers
+# Android Section Headers
 
 ##Источники вдохновения: 
 
