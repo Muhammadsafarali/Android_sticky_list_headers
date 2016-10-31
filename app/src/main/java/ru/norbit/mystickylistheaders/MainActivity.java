@@ -1,5 +1,6 @@
 package ru.norbit.mystickylistheaders;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 
 

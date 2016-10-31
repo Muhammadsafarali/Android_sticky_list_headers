@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.daimajia.swipe.SimpleSwipeListener;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.util.List;
 
@@ -16,12 +19,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by safarali.alisultanov on 26.10.2016.
  */
 
-public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class MyAdapter extends BaseSwipeAdapter implements StickyListHeadersAdapter {
 
     private List<String> countries;
     private LayoutInflater inflater;
 
     public MyAdapter(Context context, List<String> country) {
+
         inflater = LayoutInflater.from(context);
         countries = country;
 //        countries = context.getResources().getStringArray(R.array.countries);
@@ -43,22 +47,74 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe;
+    }
 
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.test_list_item_layout, parent, false);
-            holder.text = (TextView) convertView.findViewById(R.id.text);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+    @Override
+    public View generateView(final int position, ViewGroup parent) {
+        View v = inflater.inflate(R.layout.test_list_item_layout, null);
+        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+//            @Override
+//            public void onOpen(SwipeLayout layout) {
+//                 Log.e("LOG", "swipe on open");
+//            }
 
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+                Log.e("LOG", "start open -> " + position);
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+                Log.e("LOG", "close -> " + position);
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+                Log.e("LOG", "onHandRelease");
+            }
+
+        });
+        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
+            @Override
+            public void onDoubleClick(SwipeLayout layout, boolean surface) {
+                Log.e("LOG", "double click");
+            }
+        });
+        ViewHolder holder = new ViewHolder();;
+        holder.text = (TextView) swipeLayout.findViewById(R.id.text);
+        swipeLayout.setTag(holder);
         holder.text.setText(countries.get(position));
 
-        return convertView;
+        return v;
     }
+
+    @Override
+    public void fillValues(int position, View convertView) {
+//        TextView t = (TextView)convertView.findViewById(R.id.);
+//        t.setText((position + 1) + ".");
+    }
+
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//        ViewHolder holder;
+//
+//        if (convertView == null) {
+//            holder = new ViewHolder();
+//            convertView = inflater.inflate(R.layout.test_list_item_layout, parent, false);
+//            holder.text = (TextView) convertView.findViewById(R.id.text);
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
+//
+//        holder.text.setText(countries.get(position));
+//
+//        return convertView;
+//    }
 
 
 
@@ -81,7 +137,7 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     @Override
     public long getHeaderId(int position) {
-        Log.e("LOG", "tmp");
+//        Log.e("LOG", "tmp");
         long ch = countries.get(position).subSequence(0,1).charAt(0);
         return ch;
     }
