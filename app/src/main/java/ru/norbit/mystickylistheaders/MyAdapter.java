@@ -1,11 +1,14 @@
 package ru.norbit.mystickylistheaders;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
@@ -15,22 +18,23 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    private String[] countries;
+    private List<String> countries;
     private LayoutInflater inflater;
 
-    public MyAdapter(Context context) {
+    public MyAdapter(Context context, List<String> country) {
         inflater = LayoutInflater.from(context);
-        countries = context.getResources().getStringArray(R.array.countries);
+        countries = country;
+//        countries = context.getResources().getStringArray(R.array.countries);
     }
 
     @Override
     public int getCount() {
-        return countries.length;
+        return countries.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return countries[i];
+        return countries.get(i);
     }
 
     @Override
@@ -51,10 +55,12 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text.setText(countries[position]);
+        holder.text.setText(countries.get(position));
 
         return convertView;
     }
+
+
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
@@ -68,14 +74,16 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
             holder = (HeaderViewHolder) convertView.getTag();
         }
         //set header text as first char in name
-        String headerText = "" + countries[position].subSequence(0, 1).charAt(0);
+        String headerText = "" + countries.get(position).subSequence(0, 1).charAt(0);
         holder.text.setText(headerText);
         return convertView;
     }
 
     @Override
     public long getHeaderId(int position) {
-        return countries[position].subSequence(0,1).charAt(0);
+        Log.e("LOG", "tmp");
+        long ch = countries.get(position).subSequence(0,1).charAt(0);
+        return ch;
     }
 
     class HeaderViewHolder {
