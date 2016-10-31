@@ -55,26 +55,14 @@ public class MyAdapter extends BaseSwipeAdapter implements StickyListHeadersAdap
     public View generateView(final int position, ViewGroup parent) {
         View v = inflater.inflate(R.layout.test_list_item_layout, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-//            @Override
-//            public void onOpen(SwipeLayout layout) {
-//                 Log.e("LOG", "swipe on open");
-//            }
-
-            @Override
-            public void onStartOpen(SwipeLayout layout) {
-                Log.e("LOG", "start open -> " + position);
-            }
-
-            @Override
-            public void onStartClose(SwipeLayout layout) {
-                Log.e("LOG", "close -> " + position);
-            }
 
             @Override
             public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
-                Log.e("LOG", "onHandRelease");
+                // if (xvel <= 0) don't remove
+                // if (xvel > 0) remove
+                Log.e("LOG", "onHandRelease xvel = " + xvel + " yvel = " + yvel);
             }
 
         });
@@ -94,28 +82,7 @@ public class MyAdapter extends BaseSwipeAdapter implements StickyListHeadersAdap
 
     @Override
     public void fillValues(int position, View convertView) {
-//        TextView t = (TextView)convertView.findViewById(R.id.);
-//        t.setText((position + 1) + ".");
     }
-
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        ViewHolder holder;
-//
-//        if (convertView == null) {
-//            holder = new ViewHolder();
-//            convertView = inflater.inflate(R.layout.test_list_item_layout, parent, false);
-//            holder.text = (TextView) convertView.findViewById(R.id.text);
-//            convertView.setTag(holder);
-//        } else {
-//            holder = (ViewHolder) convertView.getTag();
-//        }
-//
-//        holder.text.setText(countries.get(position));
-//
-//        return convertView;
-//    }
-
 
 
     @Override

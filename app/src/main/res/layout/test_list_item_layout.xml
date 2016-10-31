@@ -5,6 +5,7 @@
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    swipe:drag_edge="left"
     swipe:leftEdgeSwipeOffset="0dp"
     swipe:rightEdgeSwipeOffset="0dp">
 
@@ -12,13 +13,14 @@
         android:background="#66ddff00"
         android:id="@+id/bottom_wrapper"
         android:layout_width="match_parent"
-        android:weightSum="1"
+        android:weightSum = "1"
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <!--What you want to show-->
     </LinearLayout>
     <LinearLayout
         android:padding="10dp"
+
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
