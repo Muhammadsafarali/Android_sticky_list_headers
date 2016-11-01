@@ -59,26 +59,31 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, 
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
-            printMsg("null convertView -> " + position);
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.test_list_item_layout, parent, false);
-            SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(R.id.swipe);
-            swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+//            SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(R.id.swipe);
+            holder.swipeLayout = (SwipeLayout)convertView.findViewById(R.id.swipe);
+            holder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
                 public void onOpen(SwipeLayout layout) {
-                    printMsg("on swipe open -> " + position);
+                    printMsg("on swipe open -> " + holder.position);
+                    countries.remove(holder.position);
+//                    holder.swipeLayout = null;
+                    notifyDataSetChanged();
                 }
+
             });
             holder.text = (TextView)convertView.findViewById(R.id.text);
             convertView.setTag(holder);
         }
         else {
-            printMsg("convertView -> " + position);
+//            printMsg("convertView -> " + position);
             holder = (ViewHolder)convertView.getTag();
         }
 
+        holder.position = position;
         holder.text.setText(countries.get(position));
         return convertView;
     }
@@ -181,6 +186,8 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, 
     }
 
     class ViewHolder {
+        int position;
+        SwipeLayout swipeLayout;
         TextView text;
     }
 }
