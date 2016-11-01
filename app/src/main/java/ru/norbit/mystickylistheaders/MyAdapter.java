@@ -24,7 +24,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by safarali.alisultanov on 26.10.2016.
  */
 
-public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, SwipeLayout.SwipeListener {
+public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter // SwipeLayout.SwipeListener
+{
 
     private List<String> countries;
     private LayoutInflater inflater;
@@ -65,17 +66,41 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, 
             convertView = inflater.inflate(R.layout.test_list_item_layout, parent, false);
 //            SwipeLayout swipeLayout = (SwipeLayout)convertView.findViewById(R.id.swipe);
             holder.swipeLayout = (SwipeLayout)convertView.findViewById(R.id.swipe);
+            holder.text = (TextView)convertView.findViewById(R.id.text);
             holder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+
                 @Override
-                public void onOpen(SwipeLayout layout) {
+                public void onHandRelease(SwipeLayout swipeLayout, float xvel, float yvel) {
+                    if (xvel > 10) {
+                        printMsg("on swipe open -> " + holder.position);
+                        countries.remove(holder.position);
+                        holder.swipeLayout.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                holder.swipeLayout.close();
+                            }
+                        });
+                        notifyDataSetChanged();
+
+                    }
+                }
+
+                /*@Override
+                public void onOpen(final SwipeLayout layout) {
                     printMsg("on swipe open -> " + holder.position);
                     countries.remove(holder.position);
 //                    holder.swipeLayout = null;
+                    holder.swipeLayout.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.swipeLayout.close();
+                        }
+                    });
                     notifyDataSetChanged();
-                }
+
+                }*/
 
             });
-            holder.text = (TextView)convertView.findViewById(R.id.text);
             convertView.setTag(holder);
         }
         else {
@@ -86,6 +111,13 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, 
         holder.position = position;
         holder.text.setText(countries.get(position));
         return convertView;
+    }
+
+    public void onOpen(SwipeLayout layout, int position) {
+        printMsg("on swipe open -> " + position);
+        countries.remove(position);
+//                    holder.swipeLayout = null;
+        notifyDataSetChanged();
     }
 
 //    @Override
@@ -151,35 +183,6 @@ public class MyAdapter extends BaseAdapter implements StickyListHeadersAdapter, 
         return ch;
     }
 
-    @Override
-    public void onStartOpen(SwipeLayout layout) {
-
-    }
-
-    @Override
-    public void onOpen(SwipeLayout layout) {
-
-    }
-
-    @Override
-    public void onStartClose(SwipeLayout layout) {
-
-    }
-
-    @Override
-    public void onClose(SwipeLayout layout) {
-
-    }
-
-    @Override
-    public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
-
-    }
-
-    @Override
-    public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
-
-    }
 
     class HeaderViewHolder {
         TextView text;
