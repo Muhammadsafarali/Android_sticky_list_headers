@@ -16,4 +16,4 @@
  ##dev
  
  <img src="https://github.com/Muhammadsafarali/Android_sticky_list_headers/blob/master/MyStickyListHeaders1.png" width="250">
- <img src="https://github.com/Muhammadsafarali/Android_sticky_list_headers/blob/master/MyStickyListHeaders2.png" width="250">
+ <img src="https://github.com/Muhammadsafarali/Android_sticky_list_headers/blob/master/MyStickyListHeaders4.png" width="250">
