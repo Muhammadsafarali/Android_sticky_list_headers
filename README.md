@@ -2,9 +2,12 @@
 
 ##Inspiration source 
 
-1) [StickyListHeaders][id]
+1) [StickyListHeaders][id1];
 
-[id]:https://github.com/emilsjolander/StickyListHeaders
+2) [AndroidSwipeLayout][id2];
+
+[id1]:https://github.com/emilsjolander/StickyListHeaders
+[id2]:https://github.com/daimajia/AndroidSwipeLayout
 
   ***
 ##`prom`
